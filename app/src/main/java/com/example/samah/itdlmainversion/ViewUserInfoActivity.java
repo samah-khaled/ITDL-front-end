@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import controllers.UserController;
 
@@ -71,7 +72,12 @@ public class ViewUserInfoActivity extends ActionBarActivity {
                 String city=City.getText().toString();
 
                 UserController usercontrol = UserController.getInstance();
+                if (usercontrol.isNetworkConnected(getApplicationContext()))
                 usercontrol.UpdateProfile(name, email, pas, gender, city, date, twitter);
+                else {
+                    Toast.makeText(getApplicationContext(), " No Internet access  ", Toast.LENGTH_LONG).show();
+
+                }
 
             }
         });

@@ -58,15 +58,15 @@ Spinner spinnerCategory;
         UserController userController = UserController.getInstance();
         boolean isConnected=userController.isNetworkConnected(getApplicationContext());
         NoteController noteController = new NoteController();
+
         if (!isConnected) {
-           noteController.AddShoppingNoteInLocalDB(productname, priority,category, false);
+           noteController.AddShoppingNoteInLocalDB(productname, priority,category, false,0);
 
         }
         else{
 
            // Toast.makeText(getApplicationContext(), " Connected ", Toast.LENGTH_LONG).show();
-            noteController.addShoppingNoteToServer(productname,priority,category);
-            noteController.AddShoppingNoteInLocalDB(productname, priority,category, true);
+            noteController.addShoppingNote(productname, priority, category);
         }
 
     }

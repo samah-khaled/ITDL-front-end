@@ -96,14 +96,13 @@ public class DeadlineActivity extends ActionBarActivity implements View.OnClickL
             UserController userController = UserController.getInstance();
             boolean isConnected=userController.isNetworkConnected(getApplicationContext());
             NoteController noteController = new NoteController();
+
             if (!isConnected) {
-                Toast.makeText(getApplicationContext(), " not Connected ", Toast.LENGTH_LONG).show();
-
-
+                //Toast.makeText(getApplicationContext(), " not Connected ", Toast.LENGTH_LONG).show();
+                noteController.addDeadlineNoteInLoacalDB(title, priority,deadlinedate_time, progressValue, false,0);
             }
             else{
-                noteController.addDeadlineNoteToServer(title, priority, deadlinedate_time, progressValue);
-                noteController.addDeadlineNoteInLoacalDB(title, priority,deadlinedate_time, progressValue, true);
+                noteController.addDeadlineNote(title, priority, deadlinedate_time, progressValue);
             }
 
         }

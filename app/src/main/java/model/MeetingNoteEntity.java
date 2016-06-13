@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -14,10 +17,10 @@ public class MeetingNoteEntity extends NoteEntity {
     protected String meetingPlace;
     protected String meetingAgenda;
 
-    public MeetingNoteEntity(String noteType, long userId, Timestamp noteDateCreation,
+    public MeetingNoteEntity(String noteType,String Priority, Timestamp noteDateCreation,
                              boolean isDone, boolean isActive, boolean isTextCategorized, boolean isSynchronized,
                         String meetingtitle ,String meetingplace,String agenda, Date meetingNoteDate,Time estimatedTransportTime) {
-        super(noteType, userId, noteDateCreation, isDone, isActive, isTextCategorized, isSynchronized);
+        super(noteType,Priority , noteDateCreation, isDone, isActive, isTextCategorized, isSynchronized);
 
         this.estimatedTransportTime=estimatedTransportTime;
         this.meetingPlace=meetingplace;
@@ -25,7 +28,20 @@ public class MeetingNoteEntity extends NoteEntity {
         this.meetingTitle=meetingtitle;
         this.meetingNoteDate=meetingNoteDate;
     }
+    public MeetingNoteEntity(String noteType,String Priority,
+                             String meetingtitle ,String meetingplace,String agenda, Date meetingNoteDate,Time estimatedTransportTime, int id) {
+        super(noteType,Priority , id);
 
+        this.estimatedTransportTime=estimatedTransportTime;
+        this.meetingPlace=meetingplace;
+        this.meetingAgenda=agenda;
+        this.meetingTitle=meetingtitle;
+        this.meetingNoteDate=meetingNoteDate;
+    }
+    public MeetingNoteEntity(String noteType,String Priority, String meetingtitle ,int id){
+        super(noteType,Priority,id);
+        meetingTitle=meetingtitle;
+    }
     public String getMeetingPlace() {
         return meetingPlace;
     }
@@ -64,5 +80,24 @@ public class MeetingNoteEntity extends NoteEntity {
 
     public void setMeetingNoteDate(Date meetingNoteDate) {
         this.meetingNoteDate = meetingNoteDate;
+    }
+
+    @Override
+    public String toString() {
+        JSONObject obj= new JSONObject();
+        try {
+            obj.put("meetingNoteDate",meetingNoteDate);
+            obj.put("estimatedTransportTime",estimatedTransportTime);
+            obj.put("meetingTitle",meetingTitle);
+            obj.put("meetingAgenda",meetingAgenda);
+            obj.put("meetingPlace",meetingPlace);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String h =obj.toString();
+       h= h.substring(0,h.length()-1);
+        return h+","+super.toString() ;
     }
 }

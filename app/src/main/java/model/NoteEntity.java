@@ -1,50 +1,114 @@
 package model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Created by samah on 21/03/2016.
  */
-public abstract class NoteEntity {
+public abstract class NoteEntity implements Serializable{
 
-    protected long noteId;
+    protected int  localNoteId;
     protected  long userId;
+    protected  long servernoteId;
     protected Timestamp noteDateCreation;
     protected  String notePriority;
     protected String noteType;
     protected boolean isDone;
-    protected boolean isActive;
+    protected boolean isDeleted;
     protected boolean isTextCategorized;
-    protected  boolean isSynchronized;
 
+    public boolean isAdded() {
+        return isAdded;
+    }
+
+    public void setIsAdded(boolean isAdded) {
+        this.isAdded = isAdded;
+    }
+
+    public boolean isUpdated() {
+        return isUpdated;
+    }
+
+    public void setIsUpdated(boolean isUpdated) {
+        this.isUpdated = isUpdated;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    protected  boolean isAdded;
+    protected  boolean isUpdated;
+
+    @Override
+    public String toString() {
+        JSONObject obj= new JSONObject();
+        try {
+            obj.put("localNoteId",localNoteId);
+            obj.put("noteDateCreation",noteDateCreation);
+            obj.put("notePriority",notePriority);
+            obj.put("noteType",noteType);
+            obj.put("isDone",isDone);
+            obj.put("isDeleted",isDeleted);
+            obj.put("isAdded",isAdded);
+            obj.put("isUpdated",isUpdated);
+            obj.put("isTextCategorized",isTextCategorized);
+            obj.put("userId",userId);
+            obj.put("serverNoteId",servernoteId);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj.toString().substring(1);
+    }
+
+    public long getServernoteId() {
+        return servernoteId;
+    }
+
+    public void setServernoteId(long servernoteId) {
+        this.servernoteId = servernoteId;
+    }
+
+    public NoteEntity(String noteType ,String notePriority,int id){
+    this.noteType=noteType;
+    this.notePriority=notePriority;
+    this.localNoteId=id;
+}
     public NoteEntity(String noteType , long userId ,Timestamp noteDateCreation,
-                      boolean isDone ,boolean isActive,boolean isTextCategorized,boolean isSynchronized) {
+                      boolean isDone ,boolean isDeleted,boolean isTextCategorized,boolean isAdded) {
         this.noteDateCreation=noteDateCreation;
         this.noteType=noteType;
-        this.isActive=isActive;
+        this.isDeleted=isDeleted;
         this.isDone=isDone;
         this.isTextCategorized=isTextCategorized;
         this.userId=userId;
-        this.isSynchronized=isSynchronized;
+        this.isAdded=isAdded;
     }
-    public NoteEntity(String noteType , String notePriority, long userId ,Timestamp noteDateCreation,
-                      boolean isDone ,boolean isActive,boolean isTextCategorized,boolean isSynchronized) {
+    public NoteEntity(String noteType , String notePriority,Timestamp noteDateCreation,
+                      boolean isDone ,boolean isDeleted,boolean isTextCategorized,boolean isAdded) {
         this.noteDateCreation=noteDateCreation;
         this.noteType=noteType;
-        this.isActive=isActive;
+        this.isDeleted=isDeleted;
         this.isDone=isDone;
         this.isTextCategorized=isTextCategorized;
         this.notePriority = notePriority;
-        this.userId=userId;
-        this.isSynchronized=isSynchronized;
+        this.isAdded=isAdded;
+    }
+    public int getNoteId() {
+        return localNoteId;
     }
 
-    public long getNoteId() {
-        return noteId;
-    }
-
-    public void setNoteId(long noteId) {
-        this.noteId = noteId;
+    public void setNoteId(int noteId) {
+        this.localNoteId = noteId;
     }
 
     public Timestamp getNoteDateCreation() {
@@ -79,14 +143,6 @@ public abstract class NoteEntity {
         this.isDone = isDone;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
-    }
-
     public boolean isTextCategorized() {
         return isTextCategorized;
     }
@@ -95,11 +151,13 @@ public abstract class NoteEntity {
         this.isTextCategorized = isTextCategorized;
     }
 
-    public boolean isSynchronized() {
-        return isSynchronized;
+
+
+    public long getUserId() {
+        return userId;
     }
 
-    public void setIsSynchronized(boolean isSynchronized) {
-        this.isSynchronized = isSynchronized;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 }

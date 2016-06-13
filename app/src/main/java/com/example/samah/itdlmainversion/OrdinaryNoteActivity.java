@@ -35,14 +35,12 @@ public class OrdinaryNoteActivity extends ActionBarActivity {
               boolean isConnected=userController.isNetworkConnected(getApplicationContext());
                 NoteController noteController = new NoteController();
                 if (!isConnected) {
-                  noteController.addOrdinaryNoteInLoacalDB(notecontent, priority, false);
-
+                  noteController.addOrdinaryNoteInLoacalDB(notecontent, priority, false,0);
                 }
                 else{
 
                    //Toast.makeText(getApplicationContext(), " Connected ", Toast.LENGTH_LONG).show();
-                    noteController.addOrdinaryNoteToServer(notecontent,priority);
-                    noteController.addOrdinaryNoteInLoacalDB(notecontent, priority, true);
+                    noteController.addOrdinaryNote(notecontent,priority);
                 }
             }
         });

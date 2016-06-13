@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -29,11 +31,14 @@ public class MeetingNoteActivity extends ActionBarActivity implements View.OnCli
     EditText Title,Agenda,meeingPlace;
     TextView displayDate,DisplayTime;
     String date,time;
+    RadioGroup priorityRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_not);
+        priorityRadioGroup = (RadioGroup)findViewById(R.id.radioGroupPriority);
+
         Title = (EditText) findViewById(R.id.etMeetingTitle);
         Agenda = (EditText) findViewById(R.id.etMeetingAgenda);
         meeingPlace = (EditText) findViewById(R.id.etMeetingPlace);
@@ -79,17 +84,20 @@ displayDate.setText("selected Date is "+year+"-"+(month+1) +"-"+dayofmonth);
             String title=Title.getText().toString();
             String place=meeingPlace.getText().toString();
             String agenda =Agenda.getText().toString();
+            int selectedId = priorityRadioGroup.getCheckedRadioButtonId();
+            RadioButton btnpriority = (RadioButton) findViewById(selectedId);
+            String priority = btnpriority.getText().toString();
             UserController userController = UserController.getInstance();
             boolean isConnected=userController.isNetworkConnected(getApplicationContext());
             NoteController noteController = new NoteController();
+
+
             if (!isConnected) {
-               noteController.addMeetingNoteInLoacalDB(title,place,agenda,date,time,false);
+               noteController.addMeetingNoteInLoacalDB(title,place,agenda,date,priority,time,false,0);
             }
             else{
 
-               //Toast.makeText(getApplicationContext(), " Connected ", Toast.LENGTH_LONG).show();
-              noteController.addMeetingNoteToServer(title, place, agenda, date + " 00:00:00", time);
-                noteController.addMeetingNoteInLoacalDB(title,place,agenda,date,time,true);
+              noteController.addMeetingNote(title, place, agenda, date, priority, time);
             }
 
         }

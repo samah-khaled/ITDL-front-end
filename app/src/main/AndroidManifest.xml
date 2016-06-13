@@ -2,9 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.samah.itdlmainversion" >
 
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="18" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name="controllers.MyApplication"
@@ -53,6 +60,37 @@
         <activity
             android:name=".DeadlineActivity"
             android:label="@string/title_activity_deadline" >
+        </activity>
+        <activity
+            android:name=".ShowAllNotesActivity"
+            android:label="@string/title_activity_show_all_notes" >
+        </activity>
+        <activity
+            android:name=".ShowNoteDetailsActivity"
+            android:label="@string/title_activity_show_note_details" >
+        </activity>
+        <activity
+            android:name=".EditOrdinaryNoteActivity"
+            android:label="@string/title_activity_edit_ordinary_note" >
+        </activity>
+        <activity
+            android:name=".EditShoppingNoteActivity"
+            android:label="@string/title_activity_edit_shopping_note" >
+        </activity>
+        <activity
+            android:name=".EditMeetingNoteActivity"
+            android:label="@string/title_activity_edit_meeting_note" >
+        </activity>
+        <activity
+            android:name=".EditDeadlineNoteActivity"
+            android:label="@string/title_activity_edit_deadline_note" >
+        </activity>
+
+        <service android:name="controllers.ApplicationService" />
+
+        <activity
+            android:name=".PreferenceActivity"
+            android:label="@string/title_activity_preference" >
         </activity>
     </application>
 

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.net.InetAddress;
 
+import controllers.ApplicationService;
 import controllers.UserController;
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
@@ -40,7 +41,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v == GoToHomeButton) {
 
-            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+            Intent i = new Intent(getApplicationContext(), PreferenceActivity.class);
             i.putExtra("name", "Sam");
             i.putExtra("userId", "5634472569470976");
             i.putExtra("serviceType", "LoginService");
@@ -60,8 +61,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 UserController usercontrol = UserController.getInstance();
 
                 if (usercontrol.isNetworkConnected(getApplicationContext()))
-
                     usercontrol.Login(email, pas);
+
                 else {
                     Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
                 }

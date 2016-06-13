@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.sql.Timestamp;
 
 /**
@@ -8,9 +11,14 @@ import java.sql.Timestamp;
 public class OrdinaryNoteEntity extends  NoteEntity{
     private String noteContent;
 
-    public OrdinaryNoteEntity(String noteType, String notePriority, long userId, Timestamp noteDateCreation,
+    public OrdinaryNoteEntity(String noteType, String notePriority,String noteContent,int id){
+        super(noteType,notePriority,id);
+        this.noteContent=noteContent;
+
+    }
+    public OrdinaryNoteEntity(String noteType, String notePriority, Timestamp noteDateCreation,
                               boolean isDone, boolean isActive, boolean isTextCategorized,String noteContent,boolean isSync) {
-        super(noteType, notePriority, userId, noteDateCreation, isDone, isActive, isTextCategorized,isSync);
+        super(noteType, notePriority, noteDateCreation, isDone, isActive, isTextCategorized,isSync);
         this.noteContent=noteContent;
 
     }
@@ -22,5 +30,19 @@ public class OrdinaryNoteEntity extends  NoteEntity{
 
     public void setNoteContent(String noteContent) {
         this.noteContent = noteContent;
+    }
+
+    @Override
+    public String toString() {
+        JSONObject obj= new JSONObject();
+        try {
+            obj.put("noteContent",noteContent);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String h =obj.toString();
+       h= h.substring(0, h.length() - 1);
+        return h+","+super.toString() ;
     }
 }
